@@ -1,0 +1,54 @@
+version: "3"
+
+services:
+    db:
+        env_file:
+          - .env
+        image: mysql:8.0.20
+        command: --default-authentication-plugin=mysql_native_password
+        container_name: ${CONTAINER_MYSQL_NAME}
+        volumes:
+            - "db_app:/var/lib/mysql"
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        ports:
+            - ${PORT_DB}:3306
+        networks:
+            - symfony
+    php:
+        env_file:
+          - .env
+        container_name: ${CONTAINER_PHP_NAME}
+        build:
+            context: ./php
+            args:
+                TIMEZONE: ${TIMEZONE}
+        volumes:
+            - symfony_docker_app_sync:/var/www/symfony/
+        networks:
+            - symfony
+    nginx:
+        env_file:
+          - .env
+        container_name: ${CONTAINER_NGNIX_NAME}
+        build:
+            context: ./nginx
+        volumes:
+            - symfony_docker_app_sync:/var/www/symfony/
+        ports:
+            - ${PORT_NGNIX}:80
+            - 7003:443
+        networks:
+            - symfony
+
+volumes:
+    symfony_docker_app_sync:
+        external: true
+    db_app:
+
+        null
+networks:
+    symfony: null

@@ -1,0 +1,26 @@
+{
+    "php.suggest.basic": false,
+    "php.executablePath": "/home/dev/Projects/app-text-sfapi/php.sh",
+    "php.validate.executablePath": "/home/dev/Projects/app-text-sfapi/php.sh",
+    "php.validate.run": "onSave",
+    "php.validate.enable": true,
+    "vscode.php-language-features": false,
+    "editor.quickSuggestions": { "comments": true },
+    "intelephense.files.exclude": [
+        "**/.git/**",
+        "**/.svn/**",
+        "**/.hg/**",
+        "**/CVS/**",
+        "**/.DS_Store/**",
+        "**/node_modules/**",
+        "**/bower_components/**",
+        "**/vendor/**/{Test,test,Tests,tests}/**"
+      ],
+      "php-cs-fixer.rules": "@PhpCsFixer",
+      "[php]": {
+        "editor.defaultFormatter": "junstyle.php-cs-fixer",
+        "editor.formatOnSave": true
+      },
+      "editor.formatOnSaveTimeout": 5000,
+
+}
